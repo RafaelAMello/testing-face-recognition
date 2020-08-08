@@ -116,7 +116,7 @@ services:
     container_name: ksqldb-server
     depends_on:
       - broker
-      - connect
+      # - connect
     ports:
       - "8088:8088"
     environment:
@@ -135,7 +135,7 @@ services:
     container_name: ksqldb-cli
     depends_on:
       - broker
-      - connect
+      # - connect
       - ksqldb-server
     entrypoint: /bin/sh
     tty: true
