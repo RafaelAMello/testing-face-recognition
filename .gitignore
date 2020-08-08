@@ -1,3 +1,5 @@
+ca.pem
+service.*
 python
 .DS_Store
 *.png

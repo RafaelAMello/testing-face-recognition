@@ -1,8 +1,14 @@
 from kafka import KafkaConsumer
 
-consumer = KafkaConsumer('ping',
-                         group_id='my-group',
-                         bootstrap_servers=['0.tcp.au.ngrok.io:19137'])
+consumer = KafkaConsumer(
+                'picture',
+                group_id='my-group',
+                bootstrap_servers='kafka-49b7861-rafaelathaydemello-3b01.aivencloud.com:25697',
+                security_protocol="SSL",
+                ssl_cafile="ca.pem",
+                ssl_certfile="service.cert",
+                ssl_keyfile="service.key"
+)
 
 
 for message in consumer:
