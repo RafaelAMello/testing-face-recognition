@@ -15,9 +15,11 @@ def read_picture_data(picture_location):
     return open(picture_location, 'rb').read()
 
 producer = KafkaProducer(
-    bootstrap_servers=['0.tcp.au.ngrok.io:10504'])
+    bootstrap_servers=['0.tcp.au.ngrok.io:10753'])
 
 picture_location, picture_time = take_picture()
+# picture_time = datetime.now()
+# picture_location='/Users/raf/projects/testing-face-recognition/face-recognition-v3/2019-06-30-201951_1184x624_scrot.png'
 picture_data = read_picture_data(picture_location)
 
 future = producer.send('picture', key=bytes(str(picture_time), 'utf-8'), value=picture_data)
