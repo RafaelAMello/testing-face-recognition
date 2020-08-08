@@ -26,5 +26,9 @@ picture_data = read_picture_data(picture_location)
 
 print("Sending Picture")
 future = producer.send('picture', key=bytes(str(picture_time), 'utf-8'), value=picture_data)
-record_metadata = future.get(timeout=10)
+try:
+    record_metadata = future.get(timeout=10)
+except:
+    future = producer.send('ping', b'pong')
+    record_metadata = future.get(timeout=10)
 producer.flush()
