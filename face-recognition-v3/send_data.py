@@ -4,7 +4,7 @@ import os
 
 def take_picture():
     picture_time = datetime.now()
-    picture_location = f"~/Desktop/{picture_time}.jpg".replace(' ', '')
+    picture_location = f"{picture_time}.jpg".replace(' ', '')
     os.system(f"fswebcam -r 1280x730 --no-banner {picture_location}")
     return picture_location, picture_time
 
