@@ -12,7 +12,7 @@ def delete_picture(picture_location):
     os.remove(picture_location)
 
 def read_picture_data(picture_location):
-    return read(picture_location, 'rb').read()
+    return open(picture_location, 'rb').read()
 
 producer = KafkaProducer(
     bootstrap_servers=['0.tcp.au.ngrok.io:10504'])
