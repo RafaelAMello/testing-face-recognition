@@ -15,20 +15,20 @@ def read_picture_data(picture_location):
     return open(picture_location, 'rb').read()
 
 producer = KafkaProducer(
-    bootstrap_servers=['0.tcp.au.ngrok.io:10753'])
+    bootstrap_servers=['0.tcp.au.ngrok.io:19137'])
 
 print("Taking Picture")
-picture_location, picture_time = take_picture()
+# picture_location, picture_time = take_picture()
 # picture_time = datetime.now()
 # picture_location='/Users/raf/projects/testing-face-recognition/face-recognition-v3/2019-06-30-201951_1184x624_scrot.png'
-print("Reading Picture")
-picture_data = read_picture_data(picture_location)
+# print("Reading Picture")
+# picture_data = read_picture_data(picture_location)
 
-print("Sending Picture")
-future = producer.send('picture', key=bytes(str(picture_time), 'utf-8'), value=picture_data)
-try:
-    record_metadata = future.get(timeout=10)
-except:
-    future = producer.send('ping', b'pong')
-    record_metadata = future.get(timeout=10)
+# print("Sending Picture")
+# future = producer.send('picture', key=bytes(str(picture_time), 'utf-8'), value=picture_data)
+# try:
+    # record_metadata = future.get(timeout=10)
+# except:
+future = producer.send('ping', b'pong')
+# record_metadata = future.get(timeout=10)
 producer.flush()
