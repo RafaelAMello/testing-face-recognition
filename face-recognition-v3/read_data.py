@@ -2,7 +2,7 @@ from kafka import KafkaConsumer
 
 consumer = KafkaConsumer('picture',
                          group_id='my-group',
-                         bootstrap_servers=['0.tcp.au.ngrok.io:10504 '])
+                         bootstrap_servers=['0.tcp.au.ngrok.io:10504'])
 
 
 for message in consumer:

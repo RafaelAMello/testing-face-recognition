@@ -21,3 +21,4 @@ picture_location, picture_time = take_picture()
 picture_data = read_picture_data(picture_location)
 
 future = producer.send('picture', key=bytes(str(picture_time), 'utf-8'), value=picture_data)
+producer.flush()
