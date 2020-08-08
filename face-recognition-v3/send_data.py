@@ -33,5 +33,6 @@ def on_send_success(record_metadata):
 def on_send_error(excp):
     raise excp
 
-future = producer.send('picture', key=bytes(str(picture_time), 'utf-8'), value=picture_data)).add_callback(on_send_success).add_errback(on_send_error)
+# future = 
+producer.send('picture', key=bytes(str(picture_time), 'utf-8'), value=picture_data).add_callback(on_send_success).add_errback(on_send_error)
 producer.flush()
