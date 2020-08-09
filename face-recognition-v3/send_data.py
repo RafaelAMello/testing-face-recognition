@@ -8,7 +8,7 @@ def take_picture():
     # https://lbhtran.github.io/Camera-setting-and-photo-taking-schedule-to-get-the-best-result/
     # fswebcam -D 2 -S 20 --set brightness=30% --set contrast=0%  -F 10 -r  640x480 --no-banner /home/pi/camera/$DATE.jpg
 
-    os.system(f"fswebcam -S 20 -r 1280x730 --no-banner {picture_location}")
+    os.system(f"fswebcam -S 50 -r 1280x730 --no-banner {picture_location}")
     return picture_location, picture_time
 
 def delete_picture(picture_location):
