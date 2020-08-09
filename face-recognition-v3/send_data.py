@@ -24,11 +24,12 @@ producer = KafkaProducer(
     ssl_keyfile="service.key"
     )
 
-print("Taking Picture")
-picture_location, picture_time = take_picture()
-print("Reading Picture")
-picture_data = read_picture_data(picture_location)
-
-print("Sending Picture")
-future = producer.send('picture', key=bytes(str(picture_time), 'utf-8'), value=picture_data)
-producer.flush()
+while True:
+    print("Taking Picture")
+    picture_location, picture_time = take_picture()
+    print("Reading Picture")
+    picture_data = read_picture_data(picture_location)
+    print("Sending Picture")
+    future = producer.send('picture', key=bytes(str(picture_time), 'utf-8'), value=picture_data)
+    delete_picture(picture_location)
+    # producer.flush()
