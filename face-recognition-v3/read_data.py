@@ -20,5 +20,9 @@ def download_faces(process_function):
         process_function(file_name)
 
 if __name__ == "__main__":
+    # pass
     # from python_face_recognition import process_face
     # download_faces(process_face)
+
+    from facebox_face_recognition import process_faces
+    download_faces(process_faces)
