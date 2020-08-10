@@ -1,13 +1,12 @@
 import os
-from os.path import join, dirname
 from datetime import datetime
 
 from dotenv import load_dotenv
 from kafka import KafkaProducer
 
-BOOTSTRAP_SERVER = f"{os.getenv('KAFKA_SERVER_HOST')}:{os.getenv('KAFKA_SERVER_PORT')}"
-dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
+
+BOOTSTRAP_SERVER = f"{os.getenv('KAFKA_SERVER_HOST')}:{os.getenv('KAFKA_SERVER_PORT')}"
 
 def take_picture():
     picture_time = datetime.now()
