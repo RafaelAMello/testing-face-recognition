@@ -5,13 +5,13 @@ from draw_face import initialize_draw, show_draw, draw_face, BLUE, RED
 def upload_picture(url, file_path):
     headers = {"Accept" : "application/json; charset=utf-8"}
     files = {'file': open(file_path,'rb')}
-    response = requests.post("http://localhost:8080/facebox/check", headers=headers, files=files)
+    response = requests.post("http://facerecognition:8080/facebox/check", headers=headers, files=files)
     print(f"Response: {response.json()}")
     assert response.json()['success']
     return response.json()
 
 def process_faces(file_path):
-    payload = upload_picture("http://localhost:8080/facebox/check", file_path)
+    payload = upload_picture("http://facerecognition:8080/facebox/check", file_path)
     draw, pil_image = initialize_draw(file_path=file_path)
     has_face = False
     for face in payload['faces']:

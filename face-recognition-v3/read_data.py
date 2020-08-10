@@ -39,10 +39,11 @@ def download_faces(process_function, send_kafka_payload=False):
             process_function(file_name)
 
 if __name__ == "__main__":
+    print("Checking availability of model")
     wait_to_become_available = True
-    while True:
+    while wait_to_become_available:
         try:
-            requests.get("http://127.0.0.1:8080")
+            requests.get("http://facerecognition:8080")
             wait_to_become_available = False
         except ConnectionError:
             print("Machine learning Not available")
