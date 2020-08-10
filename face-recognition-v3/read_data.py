@@ -1,4 +1,7 @@
 import io
+import requests
+from time import sleep
+from requests.exceptions import ConnectionError
 import json
 from kafka import KafkaConsumer, KafkaProducer
 from PIL import Image
@@ -36,5 +39,13 @@ def download_faces(process_function, send_kafka_payload=False):
             process_function(file_name)
 
 if __name__ == "__main__":
+    wait_to_become_available = True
+    while True:
+        try:
+            requests.get("http://127.0.0.1:8080")
+            wait_to_become_available = False
+        except ConnectionError:
+            print("Machine learning Not available")
+            sleep(1)
     from facebox_face_recognition import process_faces
     download_faces(process_faces, send_kafka_payload=True)
