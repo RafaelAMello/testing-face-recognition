@@ -1,11 +1,14 @@
-version: '2'
+version: '3'
+
 services:
   kafkaconsumer:
     build: .
+    volumes:
+      - ./keys:/home/keys
 
   facerecognition:
     image: machinebox/facebox
     ports:
-      - "8080:8080"
+      - 8080:8080
     environment:
       - MB_KEY=MB_KEY

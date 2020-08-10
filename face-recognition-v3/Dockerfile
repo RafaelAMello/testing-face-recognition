@@ -1,7 +1,7 @@
 FROM python:slim
 
 WORKDIR /home
-COPY . ./
+COPY ./app ./
 
 RUN pip install kafka-python
 RUN pip install Pillow

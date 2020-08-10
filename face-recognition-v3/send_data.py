@@ -19,9 +19,9 @@ def read_picture_data(picture_location):
 producer = KafkaProducer(
     bootstrap_servers='kafka-49b7861-rafaelathaydemello-3b01.aivencloud.com:25697',
     security_protocol="SSL",
-    ssl_cafile="ca.pem",
-    ssl_certfile="service.cert",
-    ssl_keyfile="service.key"
+    ssl_cafile="keys/ca.pem",
+    ssl_certfile="keys/service.cert",
+    ssl_keyfile="keys/service.key"
     )
 
 while True:

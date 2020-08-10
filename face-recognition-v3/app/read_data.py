@@ -5,23 +5,24 @@ from requests.exceptions import ConnectionError
 import json
 from kafka import KafkaConsumer, KafkaProducer
 from PIL import Image
+from facebox_face_recognition import process_faces
 
 consumer = KafkaConsumer(
             'picture',
             group_id='my-group',
             bootstrap_servers='kafka-49b7861-rafaelathaydemello-3b01.aivencloud.com:25697',
             security_protocol="SSL",
-            ssl_cafile="ca.pem",
-            ssl_certfile="service.cert",
-            ssl_keyfile="service.key"
+            ssl_cafile="keys/ca.pem",
+            ssl_certfile="keys/service.cert",
+            ssl_keyfile="keys/service.key"
 )
 
 producer = KafkaProducer(
     bootstrap_servers='kafka-49b7861-rafaelathaydemello-3b01.aivencloud.com:25697',
     security_protocol="SSL",
-    ssl_cafile="ca.pem",
-    ssl_certfile="service.cert",
-    ssl_keyfile="service.key",
+    ssl_cafile="keys/ca.pem",
+    ssl_certfile="keys/service.cert",
+    ssl_keyfile="keys/service.key",
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
     )
 
@@ -48,5 +49,5 @@ if __name__ == "__main__":
         except ConnectionError:
             print("Machine learning Not available")
             sleep(1)
-    from facebox_face_recognition import process_faces
+
     download_faces(process_faces, send_kafka_payload=True)
