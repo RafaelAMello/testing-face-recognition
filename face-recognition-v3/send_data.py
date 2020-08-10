@@ -4,7 +4,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from kafka import KafkaProducer
 
-load_dotenv(dotenv_path)
+load_dotenv('.env')
 
 BOOTSTRAP_SERVER = f"{os.getenv('KAFKA_SERVER_HOST')}:{os.getenv('KAFKA_SERVER_PORT')}"
 
