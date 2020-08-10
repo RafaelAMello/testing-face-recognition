@@ -1,6 +1,6 @@
 import requests
 from glob import glob
-from draw_face import initialize_draw, show_draw, draw_face, BLUE, RED
+from draw_face import initialize_draw, show_draw, draw_face, save_face, BLUE, RED
 
 def upload_picture(url, file_path):
     headers = {"Accept" : "application/json; charset=utf-8"}
@@ -10,7 +10,7 @@ def upload_picture(url, file_path):
     assert response.json()['success']
     return response.json()
 
-def process_faces(file_path):
+def process_faces(file_path, picture_time):
     payload = upload_picture("http://facerecognition:8080/facebox/check", file_path)
     draw, pil_image = initialize_draw(file_path=file_path)
     has_face = False
@@ -30,6 +30,7 @@ def process_faces(file_path):
         draw_face(draw, name, color, top, right, bottem, left)
     if has_face:
         show_draw(draw, pil_image)
+        save_face(pil_image, picture_time)
     return payload
 
 def train_faces():

@@ -32,9 +32,9 @@ def download_faces(process_function, send_kafka_payload=False):
         image = Image.open(io.BytesIO(message.value))
         file_name = "test.jpg"
         image.save(file_name)
+        picture_time = message.key
         if send_kafka_payload:
-            payload = process_function(file_name)
-            picture_time = message.key
+            payload = process_function(file_name, picture_time)
             producer.send('picture-metadata', key=picture_time, value=payload)
         else:
             process_function(file_name)

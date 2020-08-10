@@ -6,6 +6,7 @@ services:
     volumes:
       - ./keys:/home/keys
       - ./train:/home/train
+      - ./faces:/home/faces
 
   facerecognition:
     image: machinebox/facebox

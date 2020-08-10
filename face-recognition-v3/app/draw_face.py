@@ -21,3 +21,6 @@ def draw_face(draw, name, color, top, right, bottom, left):
     text_width, text_height = draw.textsize(name)
     draw.rectangle(((left, bottom - text_height - 10), (right, bottom)), fill=color, outline=color)
     draw.text((left + 6, bottom - text_height - 5), name, fill=(255, 255, 255, 255))
+
+def save_face(pil_image, timestamp):
+    pil_image.save(f'faces/{timestamp}.jpg')
