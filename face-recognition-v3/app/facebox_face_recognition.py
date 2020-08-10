@@ -32,12 +32,13 @@ def process_faces(file_path):
         show_draw(draw, pil_image)
     return payload
 
-def train_faces(person):
+def train_faces():
     headers = {"Accept" : "application/json; charset=utf-8"}
-    for picture_path in glob(f"train/{person}/*.jpg"):
-        params = {'name' : person, 'id' : picture_path.split('/')[-1]}
-        files = {'file': open(picture_path,'rb')}
-        response = requests.post("http://localhost:8080/facebox/teach", params=params, headers=headers, files=files)
-        print(response)
-        assert response.status_code == 200, f"Response: {response.json()}, {picture_path}"
-        print(response.json())
+    for person in glob("train/*"):
+        for picture_path in glob(f"{person}/*.jpg"):
+            params = {'name' : person.split('/')[-1], 'id' : picture_path.split('/')[-1]}
+            files = {'file': open(picture_path,'rb')}
+            response = requests.post("http://facerecognition:8080/facebox/teach", params=params, headers=headers, files=files)
+            print(response)
+            assert response.status_code == 200, f"Response: {response.json()}, {picture_path}"
+            print(response.json())

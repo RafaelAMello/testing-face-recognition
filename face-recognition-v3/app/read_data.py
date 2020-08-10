@@ -5,7 +5,7 @@ from requests.exceptions import ConnectionError
 import json
 from kafka import KafkaConsumer, KafkaProducer
 from PIL import Image
-from facebox_face_recognition import process_faces
+from facebox_face_recognition import process_faces, train_faces
 
 consumer = KafkaConsumer(
             'picture',
@@ -49,5 +49,5 @@ if __name__ == "__main__":
         except ConnectionError:
             print("Machine learning Not available")
             sleep(1)
-
+    train_faces()
     download_faces(process_faces, send_kafka_payload=True)
