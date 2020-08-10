@@ -1,4 +1,5 @@
 import io
+import os
 import requests
 from time import sleep
 from requests.exceptions import ConnectionError
@@ -7,24 +8,26 @@ from kafka import KafkaConsumer, KafkaProducer
 from PIL import Image
 from facebox_face_recognition import process_faces, train_faces
 
+BOOTSTRAP_SERVER = f"{os.getenv('KAFKA_SERVER_HOST')}:{os.getenv('KAFKA_SERVER_PORT')}"
+
 consumer = KafkaConsumer(
-            'picture',
-            group_id='my-group',
-            bootstrap_servers='kafka-49b7861-rafaelathaydemello-3b01.aivencloud.com:25697',
-            security_protocol="SSL",
-            ssl_cafile="keys/ca.pem",
-            ssl_certfile="keys/service.cert",
-            ssl_keyfile="keys/service.key"
+    'picture',
+    group_id='my-group',
+    bootstrap_servers=BOOTSTRAP_SERVER,
+    security_protocol="SSL",
+    ssl_cafile="keys/ca.pem",
+    ssl_certfile="keys/service.cert",
+    ssl_keyfile="keys/service.key"
 )
 
 producer = KafkaProducer(
-    bootstrap_servers='kafka-49b7861-rafaelathaydemello-3b01.aivencloud.com:25697',
+    bootstrap_servers=BOOTSTRAP_SERVER,
     security_protocol="SSL",
     ssl_cafile="keys/ca.pem",
     ssl_certfile="keys/service.cert",
     ssl_keyfile="keys/service.key",
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
-    )
+)
 
 def download_faces(process_function, send_kafka_payload=False):
     for message in consumer:

@@ -7,6 +7,9 @@ services:
       - ./keys:/home/keys
       - ./train:/home/train
       - ./faces:/home/faces
+    environment:
+      - KAFKA_SERVER_HOST=${KAFKA_SERVER_HOST}
+      - KAFKA_SERVER_PORT=${KAFKA_SERVER_PORT}
 
   facerecognition:
     image: machinebox/facebox

@@ -1,6 +1,13 @@
-from kafka import KafkaProducer
-from datetime import datetime
 import os
+from os.path import join, dirname
+from datetime import datetime
+
+from dotenv import load_dotenv
+from kafka import KafkaProducer
+
+BOOTSTRAP_SERVER = f"{os.getenv('KAFKA_SERVER_HOST')}:{os.getenv('KAFKA_SERVER_PORT')}"
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 def take_picture():
     picture_time = datetime.now()
@@ -17,12 +24,12 @@ def read_picture_data(picture_location):
     return open(picture_location, 'rb').read()
 
 producer = KafkaProducer(
-    bootstrap_servers='kafka-49b7861-rafaelathaydemello-3b01.aivencloud.com:25697',
+    bootstrap_servers=BOOTSTRAP_SERVER,
     security_protocol="SSL",
     ssl_cafile="keys/ca.pem",
     ssl_certfile="keys/service.cert",
     ssl_keyfile="keys/service.key"
-    )
+)
 
 while True:
     print("Taking Picture")
@@ -32,4 +39,3 @@ while True:
     print("Sending Picture")
     future = producer.send('picture', key=bytes(str(picture_time), 'utf-8'), value=picture_data)
     delete_picture(picture_location)
-    # producer.flush()
