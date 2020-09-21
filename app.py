@@ -10,6 +10,7 @@ r = redis.from_url(os.environ['REDIS_URL'])
 @app.route('/<password>', methods=['GET'])
 def get_con(password):
     if PASSWORD == password:
+        r.delete('conn_url')
         r.set('connection_requested', 'yes')
         while r.get('conn_url') is None:
             pass

@@ -15,8 +15,8 @@ while True:
         r.delete('connection_delete_requested')
 
     if r.get('connection_requested') is not None:
+        ngrok.kill()
         print("Handling Create")
         ssh_url = ngrok.connect(22, "tcp")
         r.set('conn_url', ssh_url)
         r.delete('connection_requested')
-    
