@@ -4,7 +4,7 @@ from time import sleep
 from pyngrok import ngrok
 from dotenv import load_dotenv
 
-load_dotenv('.env')
+print('Load Env', load_dotenv('.env'))
 r = redis.from_url(os.environ['REDIS_URL'])
 
 def delete_connections(r):
@@ -12,14 +12,14 @@ def delete_connections(r):
     ngrok.kill()
     r.delete('ssh_conn_url')
     r.delete('vnc_conn_url')
-    r.delete('connection_requested')
-    r.delete('connection_delete_requested')
 
 try:
     while True:
         if r.get('connection_delete_requested') is not None and r.get('connection_delete_requested').decode() == 'True':
             print("Handling Delete")
             delete_connections(r)
+
+        print('connection_requested', r.get('connection_requested'))
 
         if r.get('connection_requested') is not None and r.get('connection_requested').decode() == 'True':
             delete_connections(r)

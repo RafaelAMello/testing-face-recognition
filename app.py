@@ -11,12 +11,15 @@ r = redis.from_url(os.environ['REDIS_URL'])
 def get_con(password):
     if PASSWORD == password:
         r.set('connection_requested', 'True')
-        while r.get('connection_requested') is not None and r.get('connection_requested').decode() == 'False':
-            pass
+        while r.get('connection_requested').decode() == 'True':
+            print('connection_requested', r.get('connection_requested'))
+
         data = {
             'ssh_conn_url' : r.get('ssh_conn_url').decode(),
             'vnc_conn_url' : r.get('vnc_conn_url').decode()
         }
+        r.delete('ssh_conn_url')
+        r.delete('vnc_conn_url')
         return jsonify(data)
     return password
 
