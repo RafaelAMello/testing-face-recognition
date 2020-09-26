@@ -11,7 +11,7 @@ r = redis.from_url(os.environ['REDIS_URL'])
 def get_con(password):
     if PASSWORD == password:
         r.set('connection_requested', 'True')
-        while r.get('connection_requested').decode() == 'False':
+        while  r.get('connection_requested') is not None and r.get('connection_requested').decode() == 'False':
             pass
         data = {
             'ssh_conn_url' : r.get('ssh_conn_url').decode(),
@@ -24,7 +24,7 @@ def get_con(password):
 def delete_con(password):
     if PASSWORD == password:
         r.set('connection_delete_requested', 'True')
-        while r.get('connection_delete_requested').decode() == 'True':
+        while r.get('connection_delete_requested') is not None and r.get('connection_delete_requested').decode() == 'True':
             pass
         return jsonify({'done' : True})
     return password
