@@ -16,16 +16,16 @@ def delete_connections(r):
 
 try:
     while True:
-        if r.get('connection_delete_requested') is not None:
+        if r.get('connection_delete_requested').decode() == 'True':
             print("Handling Delete")
             delete_connections(r)
 
-        if r.get('connection_requested') is not None:
+        if r.get('connection_requested').decode() == 'True':
             delete_connections(r)
             print("Handling Create")
             r.set('ssh_conn_url', ngrok.connect(22, "tcp"))
             r.set('vnc_conn_url', ngrok.connect(5900, "tcp"))
-            r.delete('connection_requested')
+            r.set('connection_requested', 'False')
 
 except KeyboardInterrupt as err:
     print()
