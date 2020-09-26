@@ -8,6 +8,7 @@ load_dotenv('.env')
 r = redis.from_url(os.environ['REDIS_URL'])
 
 def delete_connections(r):
+    print("Deleteing")
     ngrok.kill()
     r.delete('ssh_conn_url')
     r.delete('vnc_conn_url')
