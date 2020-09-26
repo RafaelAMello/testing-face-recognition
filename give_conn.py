@@ -32,6 +32,7 @@ except KeyboardInterrupt as err:
     print()
     print("Terminating")
     ngrok.kill()
-    r.delete('conn_url')
+    r.delete('ssh_conn_url')
+    r.delete('vnc_conn_url')
     r.delete('connection_delete_requested')
     r.delete('connection_requested')
